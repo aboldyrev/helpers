@@ -20,7 +20,7 @@ if (!function_exists('format_price')) {
 }
 
 
-if (!function_exists('bytes_convert')) {
+if (!function_exists('get_size_from_bytes')) {
 
 	/**
 	 * @param string|integer $bytes
@@ -28,7 +28,7 @@ if (!function_exists('bytes_convert')) {
 	 *
 	 * @return string
 	 */
-	function bytes_convert($bytes, string $format = NULL) {
+	function get_size_from_bytes($bytes, string $format = NULL) {
 		$base = 1024;
 		$units = [ 'B', 'KB', 'MB', 'GB', 'TB' ];
 		$size = 1;
@@ -48,6 +48,32 @@ if (!function_exists('bytes_convert')) {
 		}
 
 		return round($bytes / $size) . ' ' . $format;
+	}
+}
+
+
+if (!file_exists('get_size_in_bytes')) {
+
+	/**
+	 * @param string $size
+	 *
+	 * @return float|int|string
+	 */
+	function get_size_in_bytes(string $size) {
+		$size = trim($size);
+		$last = strtolower($size[ strlen($size) - 1 ]);
+		$size = floatval($size);
+
+		switch ($last) {
+			case 'g':
+				$size *= 1024;
+			case 'm':
+				$size *= 1024;
+			case 'k':
+				$size *= 1024;
+		}
+
+		return $size;
 	}
 }
 
