@@ -50,3 +50,40 @@ if (!function_exists('bytes_convert')) {
 		return round($bytes / $size) . ' ' . $format;
 	}
 }
+
+
+if (!function_exists('str_random')) {
+
+	/**
+	 * @param int $length
+	 *
+	 * @return string
+	 */
+	function str_random(int $length = 7) {
+		$string = time() . '-' . rand(0, 999999999999);
+		$name = md5($string);
+
+		return mb_substr($name, 0, $length);
+	}
+}
+
+
+if (!function_exists('str_random2')) {
+
+	/**
+	 * @param int $length
+	 *
+	 * @return string
+	 */
+	function str_random2(int $length = 7) {
+		$result = "";
+		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		$chars_length = strlen($chars);
+		for ($i = 0; $i < $length; $i++) {
+			$rnd = rand(0, $chars_length);
+			$result .= substr($chars, $rnd, 1);
+		}
+
+		return $result;
+	}
+}
