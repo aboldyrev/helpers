@@ -113,3 +113,29 @@ if (!function_exists('str_random2')) {
 		return $result;
 	}
 }
+
+
+if (!function_exists('get_max_filesize')) {
+
+	/**
+	 * @return float|int|null|string
+	 */
+	function get_max_filesize() {
+		$sizes = [
+			ini_get('post_max_size'),
+			ini_get('upload_max_filesize'),
+			ini_get('memory_limit'),
+		];
+		$max_size = NULL;
+
+		foreach ($sizes as $size) {
+			$size = get_size_in_bytes($size);
+
+			if (is_null($max_size) || $size < $max_size) {
+				$max_size = $size;
+			}
+		}
+
+		return $max_size;
+	}
+}
