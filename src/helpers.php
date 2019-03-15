@@ -8,8 +8,8 @@ if (!function_exists('format_price')) {
 	 *
 	 * @return string
 	 */
-	function format_price($price, string $currency = '₽') {
-		$result = number_format($price, 0, ',', ' ');
+	function format_price($price, int $decimals = 2, string $currency = '₽') {
+		$result = number_format($price, $decimals, ',', ' ');
 
 		if ($currency && mb_strlen($currency)) {
 			$result .= ' ' . $currency;
@@ -23,12 +23,12 @@ if (!function_exists('format_price')) {
 if (!function_exists('bytes_convert')) {
 
 	/**
-	 * @param string $bytes
-	 * @param string $format указывает на конкретные единицы измерения ('B', 'KB', 'MB', 'GB', 'TB')
+	 * @param string|integer $bytes
+	 * @param string         $format указывает на конкретные единицы измерения ('B', 'KB', 'MB', 'GB', 'TB')
 	 *
 	 * @return string
 	 */
-	function bytes_convert($bytes, $format = NULL) {
+	function bytes_convert($bytes, string $format = NULL) {
 		$base = 1024;
 		$units = [ 'B', 'KB', 'MB', 'GB', 'TB' ];
 		$size = 1;
